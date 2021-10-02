@@ -81,6 +81,7 @@ namespace democonsole
             foreach (Student st in gr.list){//іншої групи в цю групу
                 AddStudent (st);
             }
+            gr.ClearGroup();
         }
         private string GetInfo(){ //генерує рядок з короткою інформацією про групу
             string info = "";
@@ -93,6 +94,10 @@ namespace democonsole
         private string GetFullInfo(){ //генерує рядок з повною інформацією
             string info = "";
             info += _name +": ";
+            if(list.Count == 0){
+                info = "Група порожня. Всі повтівкали(";
+                return info;
+            }
             foreach (var student in list){
                 info += student.GetStudentInfo().First +": "+ student.GetStudentInfo().Second;
             }
@@ -103,6 +108,9 @@ namespace democonsole
         }
         public void PrintFullInfo(){ //метод, що виводить повну інформацію
             Console.WriteLine(this.GetFullInfo());
+        }
+        public void ClearGroup(){
+            list.Clear();
         }
     }
     
@@ -120,11 +128,17 @@ namespace democonsole
             K17.AddStudent(aa);
             K18.AddStudent(b);
             K18.AddStudent(bb);
+            Console.WriteLine("Коротка інформація про К17 до маніпуляцій:");
+            K17.PrintInfo();
+            Console.WriteLine("Коротка інформація про К18 до маніпуляцій:");
+            K18.PrintInfo();
             K17.AddGroup(K18); //додаємо студентів групи К18 до групи К17
             a.Study(); //Студенти вчаться та змінюють значення стейтів
             b.Study();
+            Console.WriteLine("Повна інформація про групу К17 після маніпуляцій:");
             K17.PrintFullInfo(); //виводимо повну інформацію про групу
-            K17.PrintInfo(); //виводимо трішки інформації)
+            Console.WriteLine("Повна інформація про групу К18 після маніпуляцій:");
+            K18.PrintFullInfo(); //виводимо багато інформації)
         }    
         
     }
